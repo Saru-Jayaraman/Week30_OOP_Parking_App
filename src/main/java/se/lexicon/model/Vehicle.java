@@ -14,6 +14,11 @@ public class Vehicle {
         setType(type);
     }
 
+    public Vehicle(Customer customer, String licensePlate) {
+        setLicensePlate(licensePlate);
+        setCustomer(customer);
+    }
+
     public Vehicle(String licensePlate, VehicleType type, Customer customer) {
         this(licensePlate, type);
         setCustomer(customer);
@@ -56,7 +61,8 @@ public class Vehicle {
     public String toString() {
         return "Vehicle{" +
                 "licensePlate='" + licensePlate + '\'' +
-                ", type=" + type.getName() +
+                ", type=" + type +
+                ", customer=" + customer.getId() +
                 '}';
     }
 }
