@@ -45,5 +45,6 @@ public class App {
         vehicleDao.update(new Vehicle("efi123", VehicleType.MOTORCYCLE));
         vehicleDao.update(new Vehicle(customer2,"efi123"));
         vehicleDao.update(new Vehicle("efi123", VehicleType.OTHER, customer1));
+        vehicleDao.update(new Vehicle("efo123", VehicleType.OTHER, customer1));
     }
 }

@@ -45,14 +45,18 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public void update(Vehicle vehicle) {
         validateVehicle(vehicle);
+        boolean isUpdated = false;
         for (Vehicle eachVehicle : storage) {
             if(eachVehicle.getLicensePlate().equals(vehicle.getLicensePlate())) {
                 if((vehicle.getCustomer() != null) && (eachVehicle.getCustomer() != vehicle.getCustomer()))
                     eachVehicle.setCustomer(vehicle.getCustomer());
                 if((vehicle.getType()) != null && !(eachVehicle.getType().equals(vehicle.getType())))
                     eachVehicle.setType(vehicle.getType());
+                isUpdated = true;
             }
         }
+        if(!isUpdated) // Creating an entry in storage list if licensePlate is not found
+            storage.add(vehicle);
         System.out.println("Updated List: " + storage);
     }
 
