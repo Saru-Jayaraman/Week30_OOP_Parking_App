@@ -13,15 +13,13 @@ public class Customer {
     }
 
     public Customer(int id, String name, String phoneNumber) {
+        this(name, phoneNumber);
         this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
     }
 
     public Customer(int id, String name, String phoneNumber, Reservation reservation) {
+        this(name, phoneNumber);
         this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
         this.reservation = reservation;
     }
 

@@ -15,7 +15,7 @@ public class Vehicle {
     }
 
     public Vehicle(Customer customer, String licensePlate) {
-        setLicensePlate(licensePlate);
+        this(licensePlate, null);
         setCustomer(customer);
     }
 
