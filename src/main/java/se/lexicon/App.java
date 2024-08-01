@@ -1,13 +1,14 @@
 package se.lexicon;
 
-import se.lexicon.dao.CustomerDao;
-import se.lexicon.dao.CustomerDaoImpl;
-import se.lexicon.dao.VehicleDao;
-import se.lexicon.dao.VehicleDaoImpl;
+import se.lexicon.dao.*;
 import se.lexicon.model.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 public class App {
     public static void main(String[] args) {
@@ -37,15 +38,22 @@ public class App {
 
         customerDao.update(new Customer(customer3.getId(), "Customer3 Customer3", null)); // Update customer name
         customerDao.update(new Customer(customer3.getId(), null, "133327896")); // Update phone number
+//        customerDao.update(new Customer(12, null, "133327896"));
 
         ParkingSpot parkingSpot1 = new ParkingSpot(1, false, 1000);
-        Vehicle vehicleObj = new Vehicle("vehicle31", VehicleType.MOTORCYCLE, customer3);
-        Reservation reservation1 = new Reservation(2, vehicleObj, parkingSpot1);
+        Vehicle vehicleObj1 = new Vehicle("vehicle31", VehicleType.MOTORCYCLE, customer3);
+        Reservation reservation1 = new Reservation(2, vehicleObj1, parkingSpot1);
         reservation1.create();
-        customerDao.update(new Customer(customer3.getId(), null, null, reservation1));// Update reservation details
+        customerDao.update(new Customer(customer3.getId(), null, null, reservation1));// Update customerDao details
 
         reservation1.extendTime(2);
         customerDao.update(new Customer(customer3.getId(), "Customer3", "133327895", reservation1));
+
+        ParkingSpot parkingSpot2 = new ParkingSpot(2, false, 1000);
+        Vehicle vehicleObj2 = new Vehicle(customer3, "vehicle32");
+        Reservation reservation2 = new Reservation(2, vehicleObj2, parkingSpot2);
+        reservation2.create();
+        customerDao.update(new Customer(customer3.getId(), null, null, reservation2));// Update customerDao details
 
         System.out.println("====================FIND BY RESERVATION ID=====================");
 
@@ -90,5 +98,59 @@ public class App {
         vehicleDao.update(new Vehicle(customer2,"rtg322"));
         vehicleDao.update(new Vehicle("efi123", VehicleType.OTHER, customer1));
 //        vehicleDao.update(new Vehicle("efo123", VehicleType.OTHER, customer1));
+
+        System.out.println();
+        System.out.println("***************************************************************");
+        System.out.println("***************************************************************");
+        System.out.println();
+
+        System.out.println("==========================RESERVATION==========================");
+        System.out.println("===========================CREATE==============================");
+
+        ReservationDao reservationDao = new ReservationDaoImpl();
+        Reservation reservation3 = new Reservation("54694d54-dfc8-4c8f-9175-f6c054529ba8", LocalDateTime.of(LocalDate.of(2024,8,4), LocalTime.of(12, 0)),
+                LocalDateTime.of(LocalDate.of(2024,8,4), LocalTime.of(14, 0)), vehicleObj1, parkingSpot2);
+        System.out.println(reservationDao.create(reservation1));
+        System.out.println(reservationDao.create(reservation2));
+        System.out.println(reservationDao.create(reservation3));
+//        reservationDao.create(reservation1);
+
+        System.out.println("============================FIND===============================");
+
+        Optional<Reservation> optionalReservation = reservationDao.find(reservation1.getId());
+        optionalReservation.ifPresent(reservation -> System.out.println("Found Reservation: " + reservation));
+        optionalReservation = reservationDao.find("qwerty");
+        optionalReservation.ifPresentOrElse(
+                (reservation) -> System.out.println("Found Reservation: " + reservation),
+                () -> System.out.println("Reservation not found..."));
+
+        System.out.println("==========================FIND ALL=============================");
+
+        System.out.println(reservationDao.findAll());
+
+        System.out.println("====================FIND BY LICENSE PLATE======================");
+
+        System.out.println(reservationDao.findByLicensePlate("vehicle32"));
+        System.out.println(reservationDao.findByLicensePlate("car12"));
+
+        System.out.println("===========================UPDATE==============================");
+
+        Reservation reservation4 = new Reservation("54694d54-dfc8-4c8f-9175-f6c054529ba8", LocalDateTime.of(LocalDate.of(2024,8,5), LocalTime.of(12, 0)),
+                LocalDateTime.of(LocalDate.of(2024,8,5), LocalTime.of(14, 0)), new Vehicle(customer3, "vehicle31"), new ParkingSpot(3));
+        reservationDao.update(reservation4);
+//        reservationDao.update(new Reservation("54694d54", null, null, null, new ParkingSpot(1)));
+
+        System.out.println("===========================REMOVE==============================");
+
+        System.out.println("Is removed: " + reservationDao.remove(reservation1.getId()));
+        System.out.println("Is removed: " + reservationDao.remove(reservation1.getId()));
+
+        System.out.println();
+        System.out.println("***************************************************************");
+        System.out.println("***************************************************************");
+        System.out.println();
+
+        System.out.println("=========================PARKING SPOT==========================");
+        System.out.println("===========================CREATE==============================");
     }
 }

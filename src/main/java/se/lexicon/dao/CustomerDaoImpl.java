@@ -56,22 +56,25 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public void update(Customer customer) {
         validateCustomer(customer);
+        boolean isUpdated = false;
         for (Customer customerElement : storage) {
             if (customerElement.getId() == customer.getId()) {
                 if(customer.getName() != null)
                     customerElement.setName(customer.getName());
                 if(customer.getPhoneNumber() != null)
                     customerElement.setPhoneNumber(customer.getPhoneNumber());
-                if(customer.getReservation() != null)
-                    customerElement.setReservation(customer.getReservation());
                 System.out.println("Updated Element: " + customerElement);
                 if(customer.getReservation() != null) {
+                    customerElement.setReservation(customer.getReservation());
                     System.out.println(", Start time: " + customerElement.getReservation().getStartTime()
                             + ", End time: " + customerElement.getReservation().getEndTime());
                 }
+                isUpdated = true;
                 break;
             }
         }
+        if(!isUpdated)
+            throw new IllegalArgumentException("Customer not found... Enter customer id to update...");
     }
 
     @Override
