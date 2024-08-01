@@ -64,7 +64,11 @@ public class CustomerDaoImpl implements CustomerDao {
                     customerElement.setPhoneNumber(customer.getPhoneNumber());
                 if(customer.getReservation() != null)
                     customerElement.setReservation(customer.getReservation());
-                System.out.println(storage);
+                System.out.println("Updated Element: " + customerElement);
+                if(customer.getReservation() != null) {
+                    System.out.println(", Start time: " + customerElement.getReservation().getStartTime()
+                            + ", End time: " + customerElement.getReservation().getEndTime());
+                }
                 break;
             }
         }

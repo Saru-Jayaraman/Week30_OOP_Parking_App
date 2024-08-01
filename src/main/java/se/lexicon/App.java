@@ -44,6 +44,9 @@ public class App {
         reservation1.create();
         customerDao.update(new Customer(customer3.getId(), null, null, reservation1));// Update reservation details
 
+        reservation1.extendTime(2);
+        customerDao.update(new Customer(customer3.getId(), "Customer3", "133327895", reservation1));
+
         System.out.println("====================FIND BY RESERVATION ID=====================");
 
         System.out.println(customerDao.findByReservationId(customer3.getReservation().getId()));
@@ -72,20 +75,20 @@ public class App {
 
         System.out.println("===========================REMOVE==============================");
 
-        System.out.println("Is Vehicle Removed: " + vehicleDao.remove("efg123", 2));
-        System.out.println("Is Vehicle Removed: " + vehicleDao.remove("efg123", 1));
-        System.out.println("Is Vehicle Removed: " + vehicleDao.remove("efg13", 1));
+        System.out.println("Is Vehicle Removed: " + vehicleDao.remove("efg123", customer2.getId()));
+        System.out.println("Is Vehicle Removed: " + vehicleDao.remove("efg123", customer1.getId()));
+        System.out.println("Is Vehicle Removed: " + vehicleDao.remove("efg13", customer1.getId()));
 
         System.out.println("============================FIND===============================");
 
-        Collection<Vehicle> vehiclesList = vehicleDao.findByCustomerId(1);
+        Collection<Vehicle> vehiclesList = vehicleDao.findByCustomerId(customer1.getId());
         System.out.println("Vehicles list of customer 1 : " + vehiclesList);
 
         System.out.println("===========================UPDATE==============================");
 
-//        vehicleDao.update(new Vehicle("efi123", VehicleType.MOTORCYCLE)); //throws null pointer exception because customer detail is null
+//        vehicleDao.update(new Vehicle("efi123", VehicleType.MOTORCYCLE));
         vehicleDao.update(new Vehicle(customer2,"rtg322"));
         vehicleDao.update(new Vehicle("efi123", VehicleType.OTHER, customer1));
-        vehicleDao.update(new Vehicle("efo123", VehicleType.OTHER, customer1));
+//        vehicleDao.update(new Vehicle("efo123", VehicleType.OTHER, customer1));
     }
 }

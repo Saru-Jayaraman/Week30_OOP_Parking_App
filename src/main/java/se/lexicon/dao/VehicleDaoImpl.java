@@ -45,13 +45,18 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public void update(Vehicle vehicle) {
         validateVehicle(vehicle);
+        boolean isUpdated = false;
         for (Vehicle eachVehicle : storage) {
             if (eachVehicle.getLicensePlate().equalsIgnoreCase(vehicle.getLicensePlate())
                     && eachVehicle.getCustomer().getId() == vehicle.getCustomer().getId()) {
                 eachVehicle.setType(vehicle.getType());
+                isUpdated = true;
+                System.out.println(storage);
                 break;
             }
         }
+        if(!isUpdated)
+            throw new IllegalArgumentException("Element not found... Enter correct licence plate and customer id to update...");
     }
 
     @Override
@@ -69,6 +74,8 @@ public class VehicleDaoImpl implements VehicleDao {
     private void validateVehicle(Vehicle vehicle) {
         if(vehicle == null)
             throw new NullPointerException("Vehicle cannot be null...");
+        if(vehicle.getCustomer() == null)
+            throw new NullPointerException("Customer cannot be null...");
     }
 
     private void validateCustomerId(int customerId) {
