@@ -92,6 +92,10 @@ public class App {
         Collection<Vehicle> vehiclesList = vehicleDao.findByCustomerId(customer1.getId());
         System.out.println("Vehicles list of customer 1 : " + vehiclesList);
 
+        System.out.println("==========================FIND ALL=============================");
+
+        System.out.println(vehicleDao.findAll());
+
         System.out.println("===========================UPDATE==============================");
 
 //        vehicleDao.update(new Vehicle("efi123", VehicleType.MOTORCYCLE));
@@ -152,5 +156,45 @@ public class App {
 
         System.out.println("=========================PARKING SPOT==========================");
         System.out.println("===========================CREATE==============================");
+
+        ParkingSpotDao parkingSpotDao = new ParkingSpotDaoImpl();
+        ParkingSpot parkingSpot3 = new ParkingSpot(1, false, 1001);
+        ParkingSpot parkingSpot4 = new ParkingSpot(2, false, 1001);
+        ParkingSpot parkingSpot5 = new ParkingSpot(1, false, 1002);
+        ParkingSpot parkingSpot6 = new ParkingSpot(2, false, 1002);
+        parkingSpotDao.create(parkingSpot3);
+        parkingSpotDao.create(parkingSpot4);
+        parkingSpotDao.create(parkingSpot5);
+        parkingSpotDao.create(parkingSpot6);
+//        parkingSpotDao.create(parkingSpot6);
+
+        System.out.println("==========================FIND ALL=============================");
+
+        System.out.println(parkingSpotDao.findAll());
+
+        System.out.println("======================FIND BY AREA CODE========================");
+
+        System.out.println(parkingSpotDao.findByAreaCode(1001));
+
+        System.out.println("===========================OCCUPY==============================");
+
+        System.out.println("Before occupy: " + parkingSpotDao.find(1,1001));
+        parkingSpotDao.occupyParkingSpot(1, 1001);
+        System.out.println("After occupy: " + parkingSpotDao.find(1,1001));
+
+        System.out.println("===========================VACATE==============================");
+
+        System.out.println("Before vacate: " + parkingSpotDao.find(1,1001));
+        parkingSpotDao.vacateParkingSpot(1,1001);
+        System.out.println("After vacate: " + parkingSpotDao.find(1,1001));
+
+        System.out.println("===========================REMOVE==============================");
+
+        System.out.println("Is removed: " + parkingSpotDao.remove(2, 1001));
+        System.out.println("Is removed: " + parkingSpotDao.remove(2, 1001));
+
+        System.out.println();
+        System.out.println("***************************************************************");
+        System.out.println("***************************************************************");
     }
 }

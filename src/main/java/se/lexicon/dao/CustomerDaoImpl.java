@@ -39,7 +39,6 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public boolean remove(int id) {
-        validateCustomerId(id);
         Optional<Customer> vehicleOptional = find(id);
         if(vehicleOptional.isPresent()) {
             storage.remove(vehicleOptional.get());

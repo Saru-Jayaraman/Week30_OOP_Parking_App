@@ -9,7 +9,14 @@ public class VehicleDaoImpl implements VehicleDao {
     private final List<Vehicle> storage = new ArrayList<>();
 
     @Override
+    public List<Vehicle> findAll() {
+        return new ArrayList<>(storage);
+    }
+
+    @Override
     public Optional<Vehicle> find(String licensePlate, int customerId) {
+        validateLicensePlate(licensePlate);
+        validateCustomerId(customerId);
         for (Vehicle vehicle : storage) {
             if (vehicle.getLicensePlate().equals(licensePlate) && vehicle.getCustomer().getId() == customerId) {
                 return Optional.of(vehicle);
@@ -32,8 +39,6 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public boolean remove(String licensePlate, int customerId) {
-        validateLicensePlate(licensePlate);
-        validateCustomerId(customerId);
         Optional<Vehicle> vehicleOptional = find(licensePlate, customerId);
         if(vehicleOptional.isPresent()) {
             storage.remove(vehicleOptional.get());

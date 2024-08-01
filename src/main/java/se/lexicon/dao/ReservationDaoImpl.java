@@ -42,7 +42,6 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public boolean remove(String reservationId) {
-        validateParams(reservationId, "Reservation Id");
         Optional<Reservation> reservationOptional = find(reservationId);
         if(reservationOptional.isPresent()) {
             storage.remove(reservationOptional.get());
