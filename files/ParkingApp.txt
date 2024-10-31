@@ -1,0 +1,40 @@
+We will focus on designing and implementing a parking rental application that fits our specific scenario.
+The goal is to develop a console-based application dedicated to the efficient reservation and management of parking spaces.
+
+Requirements:
+•	Review OOP
+•	Class Diagram
+•	Design Patterns
+•	Collections
+•	Unit Testing
+
+Scenario:
+In the parking rental app customers reserve parking spots, each with unique details like their name and phone
+number etc.
+These reservations are linked to specific parking spaces, which can either be occupied or vacant.
+Customers have the option to associate a vehicle with their reservation by providing its license plate and type, such as car or motorcycle etc. The parking lot, identified by an area code, consists of multiple parking spaces. This application facilitates efficient organization and management of parking reservations, ensuring a seamless experience for both customers and parking operators.
+
+Here is a list of functionalities of the app based on DAO classes:
+Create a new customer
+Find a customer by ID
+Remove a customer by ID
+Find a customer by reservation ID
+Find all customers
+Create a new parking spot
+Find a parking spot by spot number
+Remove a parking spot by spot number
+Find all parking spots
+Find parking spots by area code
+Occupy a parking spot
+Vacate a parking spot
+Create a new reservation
+Find a reservation by ID
+Remove a reservation by ID
+Find a reservation by customer ID
+Find a reservation by vehicle license plate
+Find a reservation by parking spot number
+Find a vehicle by license plate
+Create a new vehicle
+Remove a vehicle by license plate
+Update a vehicle
+Find all vehicles
